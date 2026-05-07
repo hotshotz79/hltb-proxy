@@ -6,6 +6,6 @@
     "start": "node api/search.js"
   },
   "dependencies": {
-    "howlongtobeat": "^2.1.2"
+    "howlongtobeat": "^1.8.0"
   }
 }
