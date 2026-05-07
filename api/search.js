@@ -34,9 +34,9 @@ export default async function handler(req, res) {
     const mappedData = results.data.map(game => ({
       name: game.name,
       game_name: game.name,
-      comp_main: (game.mainTime || 0) * 3600,
-      comp_plus: (game.mainExtraTime || 0) * 3600,
-      comp_100: (game.completionistTime || 0) * 3600
+comp_main: game.mainTime || 0,
+comp_plus: game.mainExtraTime || 0,
+comp_100:  game.completionistTime || 0
     }));
 
     return res.status(200).json({ data: mappedData });
