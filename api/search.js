@@ -1,8 +1,8 @@
-const { HowLongToBeatService } = require('howlongtobeat-ts');
+import { HowLongToBeatService } from 'howlongtobeat-ts';
 
 const hltbService = new HowLongToBeatService();
 
-module.exports = async (req, res) => {
+export default async function handler(req, res) {
   // Add CORS headers so the PS5 browser isn't blocked
   res.setHeader('Access-Control-Allow-Credentials', true);
   res.setHeader('Access-Control-Allow-Origin', '*');
@@ -44,4 +44,4 @@ module.exports = async (req, res) => {
     console.error(error);
     return res.status(500).json({ error: 'Failed to fetch HLTB data' });
   }
-};
+}
