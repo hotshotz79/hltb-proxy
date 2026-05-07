@@ -2,7 +2,7 @@ const { HowLongToBeatService } = require('howlongtobeat-ts');
 
 const hltbService = new HowLongToBeatService();
 
-export default async function handler(req, res) {
+module.exports = async (req, res) => {
   // Add CORS headers so the PS5 browser isn't blocked
   res.setHeader('Access-Control-Allow-Credentials', true);
   res.setHeader('Access-Control-Allow-Origin', '*');
@@ -19,7 +19,7 @@ export default async function handler(req, res) {
   }
 
   try {
-    const { name } = req.body || req.query;
+    const name = req.body?.name || req.query?.name;
     
     if (!name) {
       return res.status(400).json({ error: 'Missing game name' });
@@ -31,9 +31,6 @@ export default async function handler(req, res) {
       return res.status(500).json({ error: 'Search failed or no results' });
     }
 
-    // Convert howlongtobeat-ts output format to match what our frontend expects
-    // The frontend expects the old Vercel API format (which returned seconds).
-    // howlongtobeat-ts returns hours (e.g., 22.5). We multiply by 3600.
     const mappedData = results.data.map(game => ({
       name: game.name,
       game_name: game.name,
@@ -47,4 +44,4 @@ export default async function handler(req, res) {
     console.error(error);
     return res.status(500).json({ error: 'Failed to fetch HLTB data' });
   }
-}
+};
